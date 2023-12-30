@@ -20,41 +20,46 @@ public:
 
         int tem = 0;
 
-        while(i < k+1){
+        while(i <= k){
 
             while ((nums.at(i) > 0 || nums.at(i)==0)){
                 sum += nums.at(i);
                 //std::cout << pos << "  " << i<< std::endl;
                 i++;
-                if (i >= k+1){
+                if (i > k){
                     break;
                 }
             }
 
-            while ((nums.at(i) < 0 || nums.at(i)==0)){
+            while ( i<=k && (nums.at(i) < 0 || nums.at(i)==0)){
                 sum += nums.at(i);
                 //std::cout << neg << "  " << i<< std::endl;
                 i++;
-                if (i >= k+1){
+                if (i > k){
                     break;
                 }
             }
-            int p = i;
 
-            while ((nums.at(p) > 0 || nums.at(p)==0)){
-                //std::cout << pos << "  " << i<< std::endl;
-                sum += nums.at(p);
-                p++;
-                if (p >= k+1){
-                    break;
+            if (i <= k){
+                int p = i;
+
+                while ((nums.at(p) > 0 || nums.at(p)==0)){
+                    //std::cout << pos << "  " << i<< std::endl;
+                    sum += nums.at(p);
+                    p++;
+                    if (p > k){
+                        break;
+                    }
                 }
             }
-                std::cout << sum << "   SUM " << i<< std::endl;
-            
+
+            std::cout << sum << "   SUM " << i<< std::endl;
+
             sum = max(sum, tem);
             tem = sum;
+            sum = 0;     
         }
 
-        return sum;
+        return tem;
     }
 };
