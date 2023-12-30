@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+
+        int sum = 0;
+
+        if (nums.size() == 1){
+            return nums.front();
+        }
+
+        int i = 0;
+        while (nums.at(i)< 0 || nums.at(i)==0){
+            i++;
+        }
+
+        int k = nums.size()-1;
+        while (nums.at(k)<0 || nums.at(i)==0){
+            k--;
+        }
+
+        int tem = 0;
+
+        while(i < k+1){
+
+            while ((nums.at(i) > 0 || nums.at(i)==0)){
+                sum += nums.at(i);
+                //std::cout << pos << "  " << i<< std::endl;
+                i++;
+                if (i >= k+1){
+                    break;
+                }
+            }
+
+            while ((nums.at(i) < 0 || nums.at(i)==0)){
+                sum += nums.at(i);
+                //std::cout << neg << "  " << i<< std::endl;
+                i++;
+                if (i >= k+1){
+                    break;
+                }
+            }
+            int p = i;
+
+            while ((nums.at(p) > 0 || nums.at(p)==0)){
+                //std::cout << pos << "  " << i<< std::endl;
+                sum += nums.at(p);
+                p++;
+                if (p >= k+1){
+                    break;
+                }
+            }
+                std::cout << sum << "   SUM " << i<< std::endl;
+            
+            sum = max(sum, tem);
+            tem = sum;
+        }
+
+        return sum;
+    }
+};
