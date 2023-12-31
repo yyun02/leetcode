@@ -1,35 +1,38 @@
-vector<int> elements;
-vector<int> uniq;
-
-//https://www.geeksforgeeks.org/sorting-a-vector-in-c/
-// Compares two intervals according to ending times in descending order. 
-bool compareInterval(int i1, int i2){ 
-    return (count(elements.begin(), elements.end(), i1) > count(elements.begin(), elements.end(), i2)); 
-} 
-
-
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
 
+        vector<int> uniq;
+
         if(nums.size() == 1){
             return nums[0];
         }
-
+        
         int j = 0;
+        int res = 0;
 
-        elements = nums;
+        //elements = nums;
+
         
         for (int i = 0; i < nums.size(); i++){
-            if (count(uniq.begin(), uniq.end(), elements[i]) == 0){
+            if (count(uniq.begin(), uniq.end(), nums[i]) == 0){
                 uniq.push_back(nums[i]);
                 j++;
             }
         }
 
-        
-        sort(uniq.begin(), uniq.end(), compareInterval);
+        int tem = 0;
+        int result = 0;
+        for (int i = 0; i < uniq.size(); i++){
 
-        return uniq[0];
+            tem = count (nums.begin(),nums.end(), uniq[i]);
+
+            if (tem > res){
+                res = tem;
+                result = i;
+            }
+        }
+
+        return uniq[result];
     }
 };
