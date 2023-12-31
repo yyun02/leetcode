@@ -5,9 +5,10 @@ public:
             return false;
         }
 
-        else if (x < 10){
+        if (x < 10){
             return true;
         }
+
         int length = 0;
         int tem = x;
 
@@ -20,20 +21,22 @@ public:
             tem= tem/10;
         }
 
-        //std::cout << length << std::endl;
+        std::cout << length << std::endl;
 
-        int last = 10;
-        int first = std::pow(10,(length-1));
+        int last = 1;
+        int first = std::pow(10,(length-1)); // ^ (to the power of)
 
-        for (int k = 0; k < length/2; k ++){
-            if (x/first != (x%last)/(last/10)){
-                std::cout << first << "    " << last << std::endl;
-                std::cout << x/first << "    " << (x%last)/(last/10) << std::endl;
+
+        for (int k = 1; k <= length/2; k ++){
+
+            std::cout << first << "    " << last << std::endl;
+            std::cout << (x/first)%10 << "    " << (x % static_cast<int>(pow(10, k)))/last << std::endl;
+
+            if ((x/first)%10 != (x % static_cast<int>(pow(10, k)))/last){
                 return false;
             }
             last = last * 10;
             first = first / 10;
-
         }
         return true;
     }
