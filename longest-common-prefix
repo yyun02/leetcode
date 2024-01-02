@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+    
+        int skipped = 0;
+        set <string> strings (strs.begin(), strs.end());
+        int minm = 200;
+        int tem = 0;
+
+        for (int k = 0; k < strs.size(); k++){
+            tem = strs[k].length();
+            minm = min(minm, tem);
+        }
+
+        cout << minm <<endl;
+
+        for (int j = 0; j < strings.size(); j++){
+            //cout << strs[j] << endl;
+            if (strs[j].length() > minm){
+                strs[j].erase(strs[j].begin()+minm, strs[j].end());
+            }
+            //cout << strs[j] << endl;
+            for(int i = minm-1; i >= 0; i--){
+                cout << strs[j]<< " "<< i << endl;
+                if (j ==0){
+                    break;
+                }
+                if (strs[j][i] != strs[0][i]){
+                    minm = minm-1;
+                    skipped ++;
+                }
+            }
+        }
+
+        strs[0].erase(strs[0].begin()+minm, strs[0].end());
+
+        std::cout << strs[0]  <<" "<< minm << std::endl;
+        return strs[0];
+        
+    }
+};
