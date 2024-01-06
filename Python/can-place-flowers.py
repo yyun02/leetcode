@@ -1,42 +1,28 @@
+https://leetcode.com/problems/can-place-flowers/solutions/3317839/python-simple-solution-easy-to-understand/
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        if n == 0:
+            return True
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0 and (i == 0 or flowerbed[i-1] == 0) and (i == len(flowerbed)-1 or flowerbed[i+1] == 0):
+                flowerbed[i] = 1
+                n -= 1
+                if n == 0:
+                    return True
+        return False
+
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
 
-        if len(flowerbed)==1:
-            if flowerbed[0]==1 and n==1:
-                return False
-            else:
-                return True
-
-        count = 0
-        res = 0
-        i =0
-        
+        if n == 0:
+            return True
         for i in range(len(flowerbed)):
-            if flowerbed[i]==0:
-                count+=1
-            
-            # 3, 1 - 5 ,2 -7 ,3 (minus 1 and /2)
-            else:
-                if i==0:
-                    continue
-                
-                if i==count:
-                    if count%2:
-                        count-=1
-                    
-                    res += count/2
-                    count= 0
-                    continue
-                
-                elif count%2==0:
-                    count-=1
-                
-                res += (count-1)/2
-            
-                count =0
-        
-        i+=1
-        if i ==count:
+            if flowerbed[i] == 0 and (i == 0 or flowerbed[i-1] == 0) and (i == len(flowerbed)-1 or flowerbed[i+1] == 0):
+                flowerbed[i] = 1
+                n -= 1
+                if n == 0:
+                    return True
+        return False
             res += 1+(count-1)/2
 
         elif count >0:
