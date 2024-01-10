@@ -3,3 +3,5 @@
 Select W1.id 
 From Weather W1, Weather W2
 Where W1.temperature > W2.temperature AND W1.recordDate = Dateadd(day, +1, W2.recordDate)
+
+-- DATEDIFF(w1.recordDate, w2.recordDate) = 1 
