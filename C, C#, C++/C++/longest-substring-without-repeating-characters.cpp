@@ -2,28 +2,36 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
 
-        if (s.size()==0 || s.size()==1){
-            return s.size();
+        if (s.length()==0 || s.length()==1){
+            return s.length();
         }
 
-        int count = 0;
-        int tem =0;
-        set <char> s_set;
+        unordered_set <char> set;
+        int count =-1, sum =0;
 
-        for(int i = 0; i < s.size(); i++){
+        for (int i = 0; i < s.length(); i++){
+
+            if (set.count(s[i])){ // if in set
+                //cout << "sum : " << sum;
+                while (set.count(s[i])){
+                    count ++;
+                    set.erase(s[count]);
+                }
+                //cout << "   i : " << i << "   count : " << count;
+            }
             
-            if (s_set.count(s[i])){
-                tem = max (tem, count);
-                count =0;
-                s_set.clear();
+            if (set.size() != i+1){
+                sum = max(sum, i -count);
             }
 
-            count ++;
-            s_set.insert(s[i]);
-        }
-        tem = max (tem, count);
+            set.insert(s[i]);
 
-        return tem;
-        
+            //cout << endl;
+        }
+
+        if (set.size() == s.length()){
+            return s.length();
+        }
+        return sum;
     }
 };
