@@ -5,7 +5,7 @@ public:
         set <int> set2;
         set <int, greater<int>> set;
 
-        int res = 0;
+        string res = "0";
 
         for (int i=0; i < arr1.size(); i++){
             if (set1.count(arr1[i])){
@@ -13,30 +13,31 @@ public:
             }
             set1.insert(arr1[i]);
             for (int j =0; j< arr2.size(); j++){
-                set2.insert(arr2[j]);
+                if (arr1[i]== arr2[j]){
+                    set.insert(arr1[i]);
+                    continue;
+                }
                 if (set2.count(arr1[i]) && set1.count(arr2[j])){
                     continue;
                 }
-                int tem_i = arr1[i], tem_j = arr2[j];
-                int len_i = to_string(arr1[i]).length(), len_j = to_string(arr2[j]).length();
-                cout << "tem before : "<< tem_i << " " << tem_j << endl;
-                cout << "len : " << len_i << " " << len_j << endl;
+                set2.insert(arr2[j]);
 
-                if (len_i != len_j){
-                    arr1[i]>arr2[j] ? tem_i = floor(tem_i/pow(10, len_i-len_j)) : tem_j = floor(tem_j/pow(10, len_j-len_i));
+                string first = to_string(arr1[i]), sec = to_string(arr2[j]);
+                //cout << " before while - first : " << first << " sec : " << sec << endl;
+                while (first[0] == sec[0] && first.size()>0 && sec.size()>0){
+                    res.push_back(first[0]);
+                    //cout << "res : " << res << endl;
+                    first.erase(0, 1);
+                    sec.erase(0, 1);
+
+                    //cout << "first : " << first << " sec : " << sec << endl;
                 }
-                cout << "tem : "<< tem_i << " " << tem_j << endl;
-
-                while (tem_i != tem_j){
-                    tem_i = floor(tem_i/10);
-                    tem_j = floor(tem_j/10);
-
-                    //cout << tem_i << " " << tem_j << endl;
-                }
-                set.insert(tem_i);
+                set.insert(stoi(res));
+                //cout << arr1[i] << " " << arr2[j] << " : " << res << endl;
+                res ="0";
             }
         }
-        if (*set.begin() ==0){
+        if (set.empty() || *set.begin() ==0){
             return 0;
         }
         return to_string(*set.begin()).length();
